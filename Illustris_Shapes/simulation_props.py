@@ -2,7 +2,7 @@
 dictionaries of Illustris simulation properties
 """
 
-from .project_settings import base_savepath
+from project_settings import base_savepath
 
 import numpy as np
 
@@ -43,7 +43,7 @@ d_3_dmo = {'basePath': base_savepath + 'TNG100-1-Dark/output',
        }
 
 d_4 = {'basePath': base_savepath + 'TNG50-1/output',
-       'm_dm': 3.07367708626464e-05,
+       'm_dm': 3.07367708626464e-05*10**10,
        'litte_h': 0.6774,
        'Lbox': np.array([35.0]*3)
        }

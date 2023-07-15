@@ -3,7 +3,7 @@ utility functions
 """
 
 from astropy.table import Table
-from .project_settings import PROJECT_DIRECTORY
+from project_settings import PROJECT_DIRECTORY
 
 import numpy as np
 from halotools.utils import crossmatch

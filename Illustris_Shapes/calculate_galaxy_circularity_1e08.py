@@ -357,12 +357,12 @@ def galaxy_selection(min_mstar, basePath, snapNum):
     """
 
     # make selection
-    galaxy_table = loadSubhalos(basePath, snapNum, fields=['SubhaloGrNr', 'SubhaloMassInRadType'])
+    galaxy_table = loadSubhalos(basePath, snapNum, fields=['SubhaloGrNr', 'SubhaloMassType'])
 
     gal_ids = np.arange(0,len(galaxy_table['SubhaloGrNr']))
 
     # mass of stellar particles within 2*R_half
-    mstar = galaxy_table['SubhaloMassInRadType'][:,4]
+    mstar = galaxy_table['SubhaloMassType'][:,4]
     mstar = mstar*10**10
 
     mask = (mstar >= min_mstar)
@@ -464,7 +464,7 @@ def main():
     Lbox = d['Lbox']
 
     # make galaxy selection
-    min_mstar = litte_h*10.0**9.0
+    min_mstar = litte_h*1.e8
     mask, gal_ids = galaxy_selection(min_mstar, basePath, snapNum)
 
     # number of galaxies in selection
@@ -472,7 +472,7 @@ def main():
     print("number of galaxies in selection: {0}".format(Ngals))
 
     # load galaxy table
-    fields = ['SubhaloGrNr', 'SubhaloMassInRadType', 'SubhaloPos', 'SubhaloHalfmassRadType']
+    fields = ['SubhaloGrNr', 'SubhaloMassType', 'SubhaloPos', 'SubhaloHalfmassRadType']
     galaxy_table = loadSubhalos(basePath, snapNum, fields=fields)
 
     Lx = np.zeros(Ngals)
@@ -482,7 +482,7 @@ def main():
 
     # for i in tqdm(range(Ngals)):
     for i in range(Ngals):
-        print("**** i = ", i)
+        print("***********, i = ", i)
         gal_id = gal_ids[i]
         f, vec = galaxy_circularity(gal_id, galaxy_table, basePath, snapNum, Lbox, num_r_half, m_dm)
         f_disk[i] = f
@@ -491,7 +491,7 @@ def main():
         Lz[i] = vec[2]
 
     # save measurements
-    fpath = './data/shape_catalogs/'
+    fpath = '/scratch1/TNG/TNG50-1/data/circ_catalogs/M1e8/'
     fname = sim_name + '_' + str(snapNum) +'_galaxy_circularities_' + "{:.1f}".format(num_r_half) + '.dat'
     ascii.write([gal_ids, Lx, Ly, Lz, f_disk],
                  fpath+fname,

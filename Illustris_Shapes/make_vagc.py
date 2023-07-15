@@ -8,7 +8,7 @@ from astropy.table import Table, Column
 from astropy.io import ascii
 import sys
 
-from .simulation_props import sim_prop_dict
+from simulation_props import sim_prop_dict
 
 from illustris_python.groupcat import gcPath, loadHalos, loadSubhalos
 

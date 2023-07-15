@@ -13,7 +13,7 @@ from illustris_python.snapshot import loadHalo, snapPath, loadSubhalo
 from illustris_python.groupcat import gcPath, loadHalos, loadSubhalos
 from inertia_tensors import inertia_tensors, reduced_inertia_tensors, iterative_inertia_tensors_3D
 
-from .simulation_props import sim_prop_dict
+from simulation_props import sim_prop_dict
 
 # progress bar
 from tqdm import tqdm

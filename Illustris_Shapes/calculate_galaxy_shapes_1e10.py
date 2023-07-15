@@ -170,14 +170,22 @@ def galaxy_selection(min_mstar, basePath, snapNum):
     """
 
     # make selection
-    galaxy_table = loadSubhalos(basePath, snapNum, fields=['SubhaloGrNr', 'SubhaloMassInRadType'])
+#smhr_start
+    #galaxy_table = loadSubhalos(basePath, snapNum, fields=['SubhaloGrNr', 'SubhaloMassInRadType'])
+    galaxy_table = loadSubhalos(basePath, snapNum, fields=['SubhaloGrNr', 'SubhaloMassType'])
+#smhr_end
 
     gal_ids = np.arange(0,len(galaxy_table['SubhaloGrNr']))
+    print( "len(gal_ids)",len(gal_ids))
 
     # mass of stellar particles within 2*R_half
-    mstar = galaxy_table['SubhaloMassInRadType'][:,4]
+#smhr_start    
+    #mstar = galaxy_table['SubhaloMassInRadType'][:,4]
+    mstar = galaxy_table['SubhaloMassType'][:,4]
+#smhr_end
     mstar = mstar*10**10
-
+    
+    print("min_mstar", min_mstar)
     mask = (mstar >= min_mstar)
 
     return mask, gal_ids[mask]
@@ -205,7 +213,8 @@ def main():
     # make galaxy selection
 #smhr_start
     #min_mstar = litte_h*10.0**9.0
-    min_mstar = litte_h*10.0**9.0
+    print("salam")
+    min_mstar = litte_h*10.0**10.0
 #smhr_end
     mask, gal_ids = galaxy_selection(min_mstar, basePath, snapNum)
 
@@ -214,7 +223,10 @@ def main():
     print("number of galaxies in selection: {0}".format(Ngals))
 
     # load galaxy table
-    fields = ['SubhaloGrNr', 'SubhaloMassInRadType', 'SubhaloPos', 'SubhaloHalfmassRadType']
+#smhr_start
+    #fields = ['SubhaloGrNr', 'SubhaloMassInRadType', 'SubhaloPos', 'SubhaloHalfmassRadType']
+    fields = ['SubhaloGrNr', 'SubhaloMassType', 'SubhaloPos', 'SubhaloHalfmassRadType']
+#smhr_end
     galaxy_table = loadSubhalos(basePath, snapNum, fields=fields)
 
     # create array to store shape properties
